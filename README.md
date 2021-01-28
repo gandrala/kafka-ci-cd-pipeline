@@ -10,3 +10,5 @@ kafka-console-producer.sh --bootstrap-server localhost:29092 --topic users --pro
 Sample Data
 1:Joe
 2:Boon
+
+ kafka-console-consumer.sh --bootstrap-server localhost:29092 --topic employees --from-beginning
