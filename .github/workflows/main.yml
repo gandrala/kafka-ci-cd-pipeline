@@ -39,9 +39,8 @@ jobs:
         echo "A initial message"
         mkdir ~/kafka && cd ~/kafka
         curl -o kafka.tgz https://apache.mirror.digitalpacific.com.au/kafka/2.7.0/kafka_2.13-2.7.0.tgz
-        tar -xvzf kafka.tgz --strip 1
-        bin/kafka-topics.sh --bootstrap-server localhost:29092 --list
-    - run: echo "last message"
+        tar -xvzf kafka.tgz --strip 1  
     - name: Test
       run: |
         docker ps
+        bin/kafka-topics.sh --bootstrap-server localhost:29092 --list
