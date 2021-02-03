@@ -43,5 +43,8 @@ jobs:
     - name: Test
       run: |
         docker ps
-        cd ~/kafka
-        bin/kafka-topics.sh --bootstrap-server localhost:29092 --list
+        cd ~/kafka/bin
+        kafka-topics.sh --bootstrap-server localhost:29092 --list
+        kafka-topics.sh --bootstrap-server localhost:29092 --delete --topic users
+        kafka-topics.sh --bootstrap-server localhost:29092 --create --topic users --partitions 3 --replication-factor 1
+        kafka-topics.sh --bootstrap-server localhost:29092 --list
