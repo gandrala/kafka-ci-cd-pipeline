@@ -1,0 +1,45 @@
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.0.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181" # host:container
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+   # volumes:
+   #   - /home/subbu/code/j/kafka/data/zookeeper/data:/var/lib/zookeeper/data
+   #   - /home/subbu/code/j/kafka/data/zookeeper/datalog:/var/lib/zookeeper/log
+    # -kafka-data:/var/lib/zookeeper/log
+  kafka:
+    image: confluentinc/cp-enterprise-kafka:6.0.0
+    hostname: kafka
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    #volumes:
+     # - /home/subbu/code/j/kafka/data/kafka/data:/var/lib/kafka/data
+    # -kafka-data:/var/lib/zookeeper/log
+#volumes
+#  kafka-data: (you can see at var/lib/docker a folder on the host with name kafka-data)
+#    driver:local  
+# Create dirs for Kafka / ZK data.
+# mkdir -p /home/subbu/code/j/kafka/data/zookeeper/data
+# mkdir -p /home/subbu/code/j/kafka/data/zookeeper/datalog
+# mkdir -p /home/subbu/code/j/kafka/data/kafka/data
+
+# Make sure the user has the read and write permissions.
+# chown -R 1000:1000 /home/subbu/code/j/kafka/data/zookeeper/data
+# chown -R 1000:1000 /home/subbu/code/j/kafka/data/zookeeper/datalog
+# chown -R 1000:1000 /home/subbu/code/j/kafka/data/kafka/data
