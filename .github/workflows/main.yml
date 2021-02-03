@@ -29,13 +29,20 @@ jobs:
     
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    
+
     - name: Bring up kafka environemnt
       uses: isbang/compose-action@v0.1
       with:
         compose-file: 'docker/docker-compose.yaml'
-    
+    - name: Install Kafka CLI
+      run: |
+        echo "A initial message"
+        curl "https://apache.mirror.digitalpacific.com.au/kafka/2.7.0/kafka_2.13-2.7.0.tgz" -o ~/Downloads/kafka.tgz
+        mkdir ~/kafka && cd ~/kafka
+        tar -xvzf ~/Downloads/kafka.tgz --strip 1
+        bin/kafka-topics.sh --bootstrap-server localhost:29092 --list
+    - run: echo "last message"
     - name: Test
       run: |
-        sleep 180
+# sleep 60
         docker ps
