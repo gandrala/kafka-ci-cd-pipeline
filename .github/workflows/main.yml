@@ -33,7 +33,7 @@ jobs:
     - name: Bring up kafka environemnt
       uses: isbang/compose-action@v0.1
       with:
-      compose-file: './docker/docker-compose.yml'
+        compose-file: './docker/docker-compose.yml'
     
     - name: Test
       run: |
