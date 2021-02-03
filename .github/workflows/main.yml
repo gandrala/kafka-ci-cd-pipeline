@@ -44,5 +44,4 @@ jobs:
     - run: echo "last message"
     - name: Test
       run: |
-# sleep 60
         docker ps
