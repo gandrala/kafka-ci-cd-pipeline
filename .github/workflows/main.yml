@@ -43,4 +43,5 @@ jobs:
     - name: Test
       run: |
         docker ps
+        cd ~/kafka
         bin/kafka-topics.sh --bootstrap-server localhost:29092 --list
