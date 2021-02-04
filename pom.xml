@@ -18,7 +18,7 @@
     <avro.version>1.9.1</avro.version>
   </properties>
 
-  <repositories>
+  <!-- <repositories>
     <repository>
       <id>confluent</id>
       <name>Confluent</name>
@@ -31,7 +31,7 @@
       <id>confluent</id>
       <url>https://packages.confluent.io/maven/</url>
     </pluginRepository>
-  </pluginRepositories>
+  </pluginRepositories> -->
 
 
   <dependencies>
@@ -41,7 +41,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>io.confluent</groupId>
       <artifactId>kafka-avro-serializer</artifactId>
       <version>6.0.0</version>
@@ -50,7 +50,7 @@
       <groupId>io.confluent</groupId>
       <artifactId>kafka-streams-avro-serde</artifactId>
       <version>6.0.0</version>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
@@ -86,6 +86,21 @@
   <build>
     <plugins>
       <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<finalName>uber-${artifactId}-${version}</finalName>
+				</configuration>
+			</plugin>
+      <!-- <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
@@ -96,7 +111,7 @@
             <arg>-Xlint:all</arg>
           </compilerArgs>
         </configuration>
-      </plugin>
+      </plugin> -->
       <!-- <plugin>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
@@ -116,6 +131,28 @@
             </configuration>
           </execution>
         </executions>
+      </plugin> -->
+      <!-- <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.1.1</version>
+
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+
       </plugin> -->
     </plugins>
   </build>

@@ -37,3 +37,5 @@ public class HelloStreams {
 	}
 
 }
+
+// java -classpath ./uber-kafka-ci-cd-pipeline-1.0-SNAPSHOT.jar com.kafka.local.HelloStreams
